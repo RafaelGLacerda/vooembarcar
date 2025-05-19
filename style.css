@@ -6,7 +6,7 @@
 }
 body {
   font-family: 'Poppins', sans-serif;
-  background: #f6f8fa;
+  background: #e8f2fb;
   color: #1a1a1a;
   overflow-x: hidden;
   scroll-behavior: smooth;
@@ -64,6 +64,23 @@ body {
 .navbar nav a:hover::after {
   width: 100%;
 }
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .navbar nav {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 1rem;
+  }
+
+  .navbar nav a {
+    margin: 0.5rem 0;
+  }
+}
 
 /* === Hero === */
 .hero {
@@ -104,6 +121,20 @@ body {
   background: #000000fc;
   transform: scale(1.05);
 }
+@media (max-width: 768px) {
+  .hero h1 {
+    font-size: 2rem;
+  }
+
+  .hero p {
+    font-size: 1rem;
+  }
+
+  .btn-cta {
+    padding: 0.6rem 1.5rem;
+    font-size: 1rem;
+  }
+}
 
 /* === Seções Gerais === */
 section {
@@ -141,35 +172,159 @@ section {
 .sobre-imgs img:hover {
   transform: scale(1.05);
 }
+@media (max-width: 768px) {
+  .about-content {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .image-container img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .text-container {
+    width: 100%;
+  }
+}
 
 /* === Avaliações / Carrossel === */
 .avaliacoes {
-  background: linear-gradient(135deg, #fff3e0, #ffe0b2);
-}
-.avaliacoes .carousel {
-  margin-top: 2rem;
-  display: flex;
-  gap: 2rem;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-.carousel img {
-  width: 200px;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-  transition: transform 0.3s ease;
-}
-.carousel img:hover {
-  transform: rotate(-1deg) scale(1.03);
+  background: #f9f7ff;
+  height: 800px;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 60px 20px; /* Mantido espaçamento interno */
 }
 
-/* === Contato === */
-.contato {
-  background: #fff8f2;
+.avaliacoes .avaliacoes-container {
+  max-width: 1200px; /* Corrigido de 100px para 1200px */
+  margin: 0 auto;
+  padding: 0 20px;
 }
+
+/* Imagens do carrossel */
+.carousel .carousel-track img {
+  object-fit: cover;
+  margin-bottom: 10px;
+}
+
+/* Carrossel */
+.carousel {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  background-color: transparent;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+
+
+.carousel-container h2 {
+  text-align: center;
+  margin-bottom: 10px;
+  font-size: 2.5rem;
+  color: #ff6e40;
+}
+
+.carousel-track {
+  display: flex;
+  transition: transform 0.5s ease;
+}
+
+.carousel-item {
+  min-width: 100%;
+  height: auto;
+  object-fit: contain;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.carousel-item:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(255, 255, 255, 0.9);
+  border: none;
+  font-size: 2.5rem;
+  cursor: pointer;
+  padding: 12px 18px;
+  z-index: 2;
+  border-radius: 50%;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  transition: background-color 0.3s ease;
+}
+
+.carousel-btn.prev {
+  left: 20px;
+}
+
+.carousel-btn.next {
+  right: 20px;
+}
+
+.carousel-btn:hover {
+  background-color: #fff;
+}
+@media (max-width: 768px) {
+  .carousel-item {
+    min-width: 100%;
+    height: auto;
+  }
+
+  .carousel-btn {
+    font-size: 2rem;
+    padding: 8px 12px;
+  }
+}
+
+
+
+.contato {
+  position: relative;
+  background: #ffffff;
+  width: 100%;
+  max-width: 1700px;
+  height: auto;
+  margin: 0 auto;
+  padding: 40px 20px;
+  display: flex;
+  justify-content: center; /* centraliza texto */
+  align-items: center;
+}
+
+.contato-centro {
+  text-align: center;
+  position: relative; /* para alinhamento vertical do texto */
+  z-index: 1; /* para ficar acima da imagem se precisar */
+}
+
+.logo-direita {
+  position: absolute;
+  left: 20px; /* distância da borda esquerda */
+  top: 50%;   /* centraliza verticalmente */
+  transform: translateY(-50%);
+}
+
+.logo-direita img {
+  max-width: 170px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+
 .btn-contato {
   display: inline-block;
-  margin: 1rem;
+  margin-top: 1rem;
   padding: 0.8rem 2rem;
   border-radius: 30px;
   background: #ff6e40;
@@ -179,10 +334,33 @@ section {
   box-shadow: 0 4px 10px rgba(0,0,0,0.1);
   transition: all 0.3s ease;
 }
+
 .btn-contato:hover {
   background: #ffa726;
   transform: translateY(-3px);
 }
+
+@media (max-width: 768px) {
+  .contato {
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 10px;
+    text-align: center;
+  }
+
+  .logo-direita {
+    position: static;
+    transform: none;
+    margin-bottom: 20px;
+  }
+
+  .logo-direita img {
+    margin-left: 0;
+    max-width: 120px;
+  }
+}
+
+
 
 /* === Footer === */
 footer {
@@ -214,7 +392,7 @@ footer:hover {
 /* COMO FUNCIONA - layout com imagem maior que o texto */
 .como-funciona-container {
   padding: 60px 20px;
-  background: #f9f7ff;
+  background-color: #fbf9ff;
   font-family: 'Poppins', sans-serif;
 }
 
@@ -236,7 +414,7 @@ footer:hover {
 
 /* COMO FUNCIONA - layout atualizado */
 .como-funciona-container {
-  background-color: #f3ecff;
+  background-color: #f5f1fc;
   padding: 80px 20px;
   font-family: 'Poppins', sans-serif;
 }
@@ -377,49 +555,13 @@ footer:hover {
     order: 1;
   }
 }
-.carousel {
-  position: relative;
-  width: 80%;
-  max-width: 600px;
-  margin: 40px auto;
-  overflow: hidden;
-  border-radius: 12px;
-  box-shadow: 0 0 12px rgba(0,0,0,0.1);
+.scroll-animate {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
 }
 
-.carousel-track {
-  display: flex;
-  transition: transform 0.5s ease, box-shadow 0.6s ease;
-}
-
-.carousel-item {
-  min-width: 100%;
-  height: auto;
-  object-fit: contain;
-  border-radius: 12px;
-}
-
-.carousel-btn {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background-color: rgba(255,255,255,0.8);
-  border: none;
-  font-size: 2rem;
-  cursor: pointer;
-  padding: 8px 14px;
-  z-index: 1;
-  border-radius: 50%;
-}
-
-.carousel-btn.prev {
-  left: 10px;
-}
-
-.carousel-btn.next {
-  right: 10px;
-}
-
-.carousel-btn:hover {
-  background-color: rgba(255,255,255,1);
+.scroll-animate.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
