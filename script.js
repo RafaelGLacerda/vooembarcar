@@ -58,22 +58,33 @@ document.addEventListener('DOMContentLoaded', () => {
   const navbar = document.querySelector('.navbar');
   const heroSection = document.querySelector('.hero');
 
-  function handleScroll() {
-    const heroBottom = heroSection.getBoundingClientRect().bottom;
-    const isMobile = window.innerWidth <= 768;
+  const observer = new IntersectionObserver(
+    (entries) => {
+      const isVisible = entries[0].isIntersecting;
+      const isMobile = window.innerWidth <= 768;
 
-    if (isMobile) {
-      if (heroBottom <= 0) {
-        navbar.classList.add('navbar-hidden');
+      if (isMobile) {
+        if (isVisible) {
+          navbar.style.display = 'flex'; // mostra
+        } else {
+          navbar.style.display = 'none'; // some
+        }
       } else {
-        navbar.classList.remove('navbar-hidden');
+        navbar.style.display = 'flex'; // sempre visível no desktop
       }
-    } else {
-      navbar.classList.remove('navbar-hidden'); // sempre visível no desktop
+    },
+    {
+      root: null,
+      threshold: 0.2
     }
-  }
+  );
 
-  window.addEventListener('scroll', handleScroll);
-  window.addEventListener('resize', handleScroll);
-  handleScroll(); // inicial
+  observer.observe(heroSection);
+
+  // Em caso de resize de desktop para mobile após carregado
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 768) {
+      navbar.style.display = 'flex';
+    }
+  });
 });
