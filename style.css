@@ -81,6 +81,19 @@ body {
     margin: 0.5rem 0;
   }
 }
+/* Estado oculto com transição suave */
+.navbar.fade-out {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+/* Estado visível com transição suave */
+.navbar.fade-in {
+  opacity: 1;
+  pointer-events: all;
+  transition: opacity 0.4s ease;
+}
 
 /* === Hero === */
 .hero {

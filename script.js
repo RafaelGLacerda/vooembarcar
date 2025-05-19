@@ -65,12 +65,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if (isMobile) {
         if (isVisible) {
-          navbar.style.display = 'flex'; // mostra
+          navbar.classList.remove('fade-out');
+          navbar.classList.add('fade-in');
         } else {
-          navbar.style.display = 'none'; // some
+          navbar.classList.remove('fade-in');
+          navbar.classList.add('fade-out');
         }
       } else {
-        navbar.style.display = 'flex'; // sempre visível no desktop
+        // Sempre visível no desktop
+        navbar.classList.remove('fade-out');
+        navbar.classList.add('fade-in');
       }
     },
     {
@@ -81,10 +85,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   observer.observe(heroSection);
 
-  // Em caso de resize de desktop para mobile após carregado
+  // Em caso de redimensionamento
   window.addEventListener('resize', () => {
     if (window.innerWidth > 768) {
-      navbar.style.display = 'flex';
+      navbar.classList.remove('fade-out');
+      navbar.classList.add('fade-in');
     }
   });
 });
