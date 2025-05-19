@@ -54,3 +54,26 @@ function handleScrollAnimation() {
 
 window.addEventListener('scroll', handleScrollAnimation);
 window.addEventListener('load', handleScrollAnimation);
+document.addEventListener('DOMContentLoaded', () => {
+  const navbar = document.querySelector('.navbar');
+  const heroSection = document.querySelector('.hero');
+
+  function handleScroll() {
+    const heroBottom = heroSection.getBoundingClientRect().bottom;
+    const isMobile = window.innerWidth <= 768;
+
+    if (isMobile) {
+      if (heroBottom <= 0) {
+        navbar.classList.add('navbar-hidden');
+      } else {
+        navbar.classList.remove('navbar-hidden');
+      }
+    } else {
+      navbar.classList.remove('navbar-hidden'); // sempre visível no desktop
+    }
+  }
+
+  window.addEventListener('scroll', handleScroll);
+  window.addEventListener('resize', handleScroll);
+  handleScroll(); // inicial
+});
