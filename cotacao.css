@@ -197,6 +197,13 @@ margin-right: 176px;
   display: inline-block;
   margin-left: -3px;
 }
+@media (max-width: 500px) {
+  .checkbox-row {
+    margin-right: 0 !important;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+}
 
 .circle-icon {
   width: 20px;
