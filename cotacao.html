@@ -4,179 +4,64 @@
   <meta charset="UTF-8" />
   <link rel="icon" href="img/logo4.png" type="image/png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Solicitação de Cotação</title>
+  <title>Solicitação de cotação</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
-  <style>
-    body {
-      font-family: 'Poppins', sans-serif;
-      background-color: #f1f4f9;
-      padding: 40px;
-      display: flex;
-      justify-content: center;
-    }
-
-    .form-container, .sucesso-container {
-      background: #fff;
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-      max-width: 600px;
-      width: 100%;
-      text-align: center;
-      position: relative;
-    }
-
-    .mensagem-erro {
-      color: #d93025;
-      background-color: #fdecea;
-      border: 1px solid #f5c6cb;
-      padding: 10px;
-      border-radius: 8px;
-      margin-bottom: 20px;
-      display: none;
-      font-size: 0.95rem;
-    }
-
-    h2 {
-      color: #ff6e40;
-      margin-bottom: 25px;
-    }
-
-    form input, form select {
-      width: 100%;
-      padding: 12px;
-      margin-bottom: 15px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      font-size: 1rem;
-    }
-
-    .checkbox-group {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      margin-bottom: 15px;
-      gap: 6px;
-    }
-
-    .checkbox-group-row {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .checkbox-group input[type="checkbox"] {
-      width: auto;
-      margin: 0;
-    }
-
-    .checkbox-msg {
-      font-size: 0.9rem;
-      color: #555;
-      margin-left: 26px; /* alinhamento com checkbox */
-    }
-
-    .button-group {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    button {
-      padding: 12px 24px;
-      background-color: #ff6e40;
-      color: white;
-      border: none;
-      font-size: 1.1rem;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: background 0.3s ease;
-    }
-
-    button:hover {
-      background-color: #e65b30;
-    }
-
-    .confirmacao-container {
-      display: none;
-      margin-top: 20px;
-    }
-
-    .sucesso-container {
-      display: none;
-      animation: fadeIn 0.5s ease-in-out;
-    }
-
-    .sucesso-container p {
-      font-size: 1.1rem;
-      color: green;
-      margin-bottom: 20px;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-  </style>
+  <link rel="stylesheet" href="cotacao.css">
 </head>
 <body>
 
   <div class="form-container" id="formContainer">
-    <div id="mensagemErro" class="mensagem-erro">Por favor, preencha todos os campos obrigatórios antes de enviar.</div>
+    <h2>Solicite sua cotação</h2>
+    <div id="mensagemErro" class="mensagem-erro">Preencha todos os campos obrigatórios.</div>
 
-    <h2>Solicite sua Cotação</h2>
-    <form id="cotacaoForm" action="https://formsubmit.co/vooembarcar@gmail.com" method="POST" onsubmit="return false;">
-      <input type="text" name="nome" placeholder="Nome completo" required />
-      <input type="email" name="email" placeholder="E-mail" required />
-      <input type="tel" name="whatsapp" placeholder="WhatsApp (com DDD)" required />
-      <input type="text" name="origem" placeholder="Cidade de origem" required />
+    <form id="cotacaoForm" onsubmit="return false;">
+      <input type="text" name="nome" placeholder="Nome" required />
+      <input type="text" name="origem" placeholder="Origem" required />
       <input type="text" name="destino" placeholder="Destino" required />
-      
-      <label>Data de ida:</label>
-      <input type="date" name="data_ida" required />
-      <label>Data de volta:</label>
-      <input type="date" name="data_volta" required />
 
-      <div class="checkbox-group">
-        <div class="checkbox-group-row">
-          <input type="checkbox" id="flexivel" name="flexivel" value="Sim">
-          <label for="flexivel">Tenho flexibilidade nas datas</label>
-        </div>
-        <div class="checkbox-msg">
-          A flexibilidade nas datas é de extrema importância para conseguirmos oferecer descontos ou ofertas melhores.
-        </div>
+      <input type="date" name="data_ida" required placeholder="Data de ida" />
+
+      <div class="checkbox-container">
+        <label class="checkbox-row">
+          <input type="checkbox" id="somenteIda" name="somente_ida">
+          <span>Somente ida</span>
+        </label>
       </div>
+
+      <div id="campoVolta">
+        <input type="date" name="data_volta" />
+      </div>
+
+      <label class="checkbox-row2">
+        <input type="checkbox" id="flexivel" name="flexivel" value="Sim">
+        <span>Tenho flexibilidade nas datas</span>
+        <div class="tooltip-wrapper" aria-label="Ajuda">
+          <div class="circle-icon">?</div>
+          <div class="tooltip-box">Flexibilidade significa considerar datas próximas à desejada, aumentando as chances de encontrar melhores preços.</div>
+        </div>
+      </label>
 
       <input type="number" name="passageiros" placeholder="Quantidade de passageiros" min="1" required />
 
-      <input type="hidden" name="_captcha" value="false" />
-      <input type="hidden" name="_next" value="https://vooembarcar.netlify.app/?enviado=true" />
-
       <div class="button-group">
-        <button type="button" onclick="mostrarConfirmacao()">Enviar</button>
+        <button type="button" onclick="enviarFormulario()">Enviar</button>
         <button type="button" onclick="window.location.href='index.html'">Voltar</button>
       </div>
     </form>
-
-    <div class="confirmacao-container" id="confirmacaoContainer">
-      <h3>Você tem certeza que deseja enviar a solicitação?</h3>
-      <div class="button-group">
-        <button onclick="enviarFormulario()">ENVIAR</button>
-        <button onclick="cancelarEnvio()">CANCELAR</button>
-      </div>
-    </div>
   </div>
 
-  <div class="sucesso-container" id="mensagemSucesso">
-    <h2>✅ Solicitação enviada!</h2>
-    <p>Sua solicitação foi enviada e será respondida em breve no WhatsApp.</p>
+  <div class="sucesso-container" id="mensagemSucesso" style="display:none;">
+    <h2>✅ Enviado com sucesso!</h2>
+    <p>Abra o WhatsApp e clique em "enviar".</p>
+    <button onclick="window.location.href='index.html'">Voltar para o site</button>
   </div>
 
   <script>
     const today = new Date().toISOString().split('T')[0];
     const dataIda = document.querySelector('input[name="data_ida"]');
     const dataVolta = document.querySelector('input[name="data_volta"]');
+    const campoVolta = document.getElementById('campoVolta');
+    const somenteIdaCheckbox = document.getElementById('somenteIda');
     const erroMensagem = document.getElementById('mensagemErro');
 
     dataIda.setAttribute('min', today);
@@ -186,45 +71,67 @@
       dataVolta.setAttribute('min', this.value);
     });
 
-    function mostrarConfirmacao() {
+    somenteIdaCheckbox.addEventListener('change', function () {
+      if (this.checked) {
+        campoVolta.style.display = 'none';
+        dataVolta.removeAttribute('required');
+        dataVolta.value = '';
+      } else {
+        campoVolta.style.display = 'block';
+        dataVolta.setAttribute('required', '');
+      }
+    });
+
+    function formatarDataBR(dataISO) {
+      if (!dataISO) return "";
+      const partes = dataISO.split('-'); // [yyyy, mm, dd]
+      return `${partes[2]}/${partes[1]}/${partes[0]}`;
+    }
+
+    function enviarFormulario() {
       const form = document.getElementById('cotacaoForm');
       const inputs = form.querySelectorAll('input[required]');
       let allFilled = true;
 
       inputs.forEach(input => {
-        if (!input.value.trim()) {
-          allFilled = false;
-        }
+        if (!input.value.trim()) allFilled = false;
       });
 
-      if (allFilled) {
-        erroMensagem.style.display = 'none';
-        document.getElementById('confirmacaoContainer').style.display = 'block';
-      } else {
+      if (!allFilled) {
         erroMensagem.style.display = 'block';
-        document.getElementById('confirmacaoContainer').style.display = 'none';
         setTimeout(() => {
           erroMensagem.style.display = 'none';
         }, 4000);
+        return;
+      } else {
+        erroMensagem.style.display = 'none';
       }
-    }
 
-    function enviarFormulario() {
-      document.getElementById('confirmacaoContainer').style.display = 'none';
-      document.getElementById('formContainer').style.display = 'none';
-      document.getElementById('mensagemSucesso').style.display = 'block';
+      const nome = form.nome.value.trim();
+      const origem = form.origem.value.trim();
+      const destino = form.destino.value.trim();
+      const dataIdaVal = formatarDataBR(form.data_ida.value);
+      const somenteIda = somenteIdaCheckbox.checked;
+      const dataVoltaVal = somenteIda ? "Somente ida" : (form.data_volta.value ? formatarDataBR(form.data_volta.value) : "Não informada");
+      const flexivel = form.flexivel.checked ? "Sim" : "Não";
+      const passageiros = form.passageiros.value;
 
-      setTimeout(() => {
-        document.getElementById('cotacaoForm').submit();
-      }, 2000);
-    }
+      const mensagem = `
+*Solicitação de Cotação*
+🧍 Nome: ${nome}
+📍 Origem: ${origem}
+🎯 Destino: ${destino}
+🗓️ Ida: ${dataIdaVal}
+🔁 Volta: ${dataVoltaVal}
+📅 Flexível nas datas: ${flexivel}
+👥 Passageiros: ${passageiros}
+      `;
 
-    function cancelarEnvio() {
-      document.getElementById('confirmacaoContainer').style.display = 'none';
-    }
+      const mensagemCodificada = encodeURIComponent(mensagem);
+      const numeroEmpresa = "5584999839663";
+      const linkWhatsApp = `https://wa.me/${numeroEmpresa}?text=${mensagemCodificada}`;
+      window.open(linkWhatsApp, '_blank');
 
-    const params = new URLSearchParams(window.location.search);
-    if (params.get('enviado') === 'true') {
       document.getElementById('formContainer').style.display = 'none';
       document.getElementById('mensagemSucesso').style.display = 'block';
     }

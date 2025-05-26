@@ -1,0 +1,252 @@
+:root {
+  --cor-principal: #ff6e40;
+  --cor-principal-hover: #e65b30;
+  --cor-fundo: #f1f4f9;
+  --cor-sucesso: #2e7d32;
+  --cor-erro: #d93025;
+  --cor-erro-bg: #fdecea;
+  --cor-erro-borda: #f5c6cb;
+  --fonte-principal: 'Poppins', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--fonte-principal);
+  background-color: var(--cor-fundo);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.form-container,
+.sucesso-container {
+  background: #fff;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 500px;
+}
+
+h2 {
+  color: var(--cor-principal);
+  margin-bottom: 24px;
+  font-size: 1.8rem;
+  text-align: center;
+}
+
+.mensagem-erro {
+  display: none;
+  background-color: var(--cor-erro-bg);
+  color: var(--cor-erro);
+  border: 1px solid var(--cor-erro-borda);
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  font-size: 0.95rem;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+input,
+select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+label {
+  font-size: 0.95rem;
+  color: #333;
+}
+
+.checkbox-group,
+.checkbox-flex {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.95rem;
+}
+
+.flex-column-label label {
+  margin: 0;
+  line-height: 1.3;
+}
+
+.info-msg {
+  font-size: 0.85rem;
+  color: #777;
+  margin-top: -8px;
+  margin-left: 28px;
+}
+
+.button-group {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+button {
+  padding: 12px 24px;
+  background-color: var(--cor-principal);
+  color: white;
+  border: none;
+  font-size: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+button:hover {
+  background-color: var(--cor-principal-hover);
+}
+
+.confirmacao-container,
+.sucesso-container {
+  display: none;
+  animation: fadeIn 0.5s ease-in-out;
+  margin-top: 24px;
+  text-align: center;
+}
+
+.sucesso-container p {
+  font-size: 1rem;
+  color: var(--cor-sucesso);
+  margin-top: 10px;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 500px) {
+  .form-container {
+    padding: 20px;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  button {
+    width: 100%;
+  }
+
+  .info-msg {
+    margin-left: 0;
+  }
+}
+.checkbox-container {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.checkbox-row {
+    
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.95rem;
+  color: #333;
+}
+.checkbox-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.checkbox-row {
+  display: inline-flex;
+  align-items: center;
+margin-right: 321px;
+  white-space: nowrap; /* <<< impede quebra de linha */
+  font-size: 0.95rem;
+}
+.checkbox-row2 {
+  display: inline-flex;
+  align-items: center;
+margin-right: 176px;
+    gap: 8px;
+  white-space: nowrap; /* <<< impede quebra de linha */
+  font-size: 0.95rem;
+}
+.tooltip-wrapper {
+  position: relative;
+  display: inline-block;
+  margin-left: -3px;
+}
+
+.circle-icon {
+  width: 20px;
+  height: 20px;
+  background-color: #ffffff; /* laranja claro */
+  color: var(--cor-principal); /* laranja principal */
+  border-radius: 50%;
+  font-weight: bold;
+  font-size: 14px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: default;
+  border: 1px solid var(--cor-principal);
+}
+
+.tooltip-box {
+  visibility: hidden;
+  width: 260px;
+  background-color: #333;
+  color: #fff;
+  text-align: left;
+  border-radius: 6px;
+  padding: 10px 12px;
+  position: absolute;
+  z-index: 10;
+  bottom: 130%; /* aparece acima do ícone */
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  font-size: 0.85rem;
+  line-height: 1.3;
+  white-space: normal;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.tooltip-wrapper:hover .tooltip-box {
+  visibility: visible;
+  opacity: 1;
+}
+
+.tooltip-box::after {
+  content: "";
+  position: absolute;
+  top: 100%; /* ponteiro virado para baixo */
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 6px;
+  border-style: solid;
+  border-color: #333 transparent transparent transparent;
+}
+
