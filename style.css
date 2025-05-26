@@ -303,9 +303,9 @@ section {
 
 .contato {
   position: relative;
-  background: #faeedd;
+  background: #ffffff;
   width: 100%;
-  max-width: 700px;
+
   height: auto;
   margin: 0 auto;
   padding: 40px 20px;
@@ -443,27 +443,31 @@ footer:hover {
   max-width: 1200px;
   margin: 0 auto;
   display: flex;
-  align-items: flex-start;
+  align-items: stretch;
   justify-content: center;
   gap: 50px;
   flex-wrap: wrap;
 }
 
 .como-funciona-img {
-  width: 600px;
-  max-width: 100%;
+  width: 100%;
+  height: 100%;
+  max-width: 650px;
+  object-fit: cover;
   border-radius: 20px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-  flex-shrink: 0;
-    transition: transform 0.8s ease, box-shadow 0.1s ease;
-
+  transition: transform 0.8s ease, box-shadow 0.1s ease;
 }
+
 .como-funciona-img:hover {
   transform: scale(1.05);
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
 }
+
 .como-funciona-texto {
-  max-width: 400px;
+  flex: 1;
+  min-width: 150px;
+  max-width: 500px;
   background-color: #fff;
   padding: 25px 30px;
   border-radius: 20px;
@@ -471,23 +475,60 @@ footer:hover {
   font-size: 0.95rem;
   line-height: 1.7;
   color: #333;
-  transition: all 0.3s ease;
-    transition: transform 0.5s ease, box-shadow 0.6s ease;
-
+  transition: transform 0.5s ease, box-shadow 0.6s ease;
 }
+
 .como-funciona-texto:hover {
   transform: scale(1.05);
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
 }
 
-.como-funciona-texto h3 {
-  font-size: 1.3rem;
-  background-color: #ff6e40;
-  margin-bottom: 15px;
+/* ESTILO PARA DETALHES */
+.como-funciona-texto details {
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  padding: 12px 16px;
+  margin-bottom: 16px;
+  background-color: #fdfdfd;
+  transition: all 0.3s ease;
+}
+
+.como-funciona-texto details[open] {
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+.como-funciona-texto summary {
+  font-weight: 600;
+  font-size: 1rem;
+  color: #1b2c50;
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  padding-right: 20px;
+}
+
+.como-funciona-texto summary::after {
+  content: '▼';
+  font-size: 0.8rem;
+  color: #ff6e40;
+  position: absolute;
+  right: 0;
+  transition: transform 0.3s ease;
+}
+
+.como-funciona-texto details[open] summary::after {
+  transform: rotate(180deg);
 }
 
 .como-funciona-texto p {
-  margin-bottom: 10px;
+  margin: 10px 0 0;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #444;
 }
 
 @media (max-width: 768px) {
@@ -496,15 +537,14 @@ footer:hover {
     align-items: center;
   }
 
-  .como-funciona-img {
-    width: 90%;
-  }
-
+  .como-funciona-img,
   .como-funciona-texto {
     width: 90%;
-    font-size: 0.9rem;
+    max-width: 100%;
   }
 }
+
+
 .about-section {
   padding: 80px 20px;
   background-color: #ffffff;
@@ -577,4 +617,54 @@ footer:hover {
 .scroll-animate.visible {
   opacity: 1;
   transform: translateY(0);
+}
+.zap-flutuante {
+  width: 60px;
+  height: 60px;
+  position: fixed;
+   bottom: 3rem;
+  right: 2rem;
+  z-index: 1000;
+  transition: all 0.4s ease;
+  background-color: #fff;
+  border-radius: 50%;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
+
+.zap-flutuante img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+}
+
+/* Efeito Hover Chamativo */
+.zap-flutuante:hover {
+  transform: translate(-10px, -10px) scale(1.2);
+  box-shadow: 0 12px 30px rgba(0, 255, 0, 0.4);
+  background-color: #25D366;
+}
+
+.zap-flutuante:hover img {
+  transform: scale(1.1);
+}
+.btn-contato {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1rem;
+  padding: 0.8rem 2rem;
+  border-radius: 30px;
+  background: #ff6e40;
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+  font-size: 1rem;
+}
+
+.btn-contato svg {
+  vertical-align: middle;
 }
