@@ -198,7 +198,8 @@ margin-right: 176px;
   margin-left: -3px;
 }
 @media (max-width: 500px) {
-  .checkbox-row {
+  .checkbox-row,
+   .checkbox-row2 {
     margin-right: 0 !important;
     justify-content: flex-start;
     flex-wrap: wrap;
