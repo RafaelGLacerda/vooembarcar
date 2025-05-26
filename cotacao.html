@@ -51,6 +51,31 @@
       font-size: 1rem;
     }
 
+    .checkbox-group {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      margin-bottom: 15px;
+      gap: 6px;
+    }
+
+    .checkbox-group-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .checkbox-group input[type="checkbox"] {
+      width: auto;
+      margin: 0;
+    }
+
+    .checkbox-msg {
+      font-size: 0.9rem;
+      color: #555;
+      margin-left: 26px; /* alinhamento com checkbox */
+    }
+
     .button-group {
       display: flex;
       justify-content: center;
@@ -107,10 +132,22 @@
       <input type="tel" name="whatsapp" placeholder="WhatsApp (com DDD)" required />
       <input type="text" name="origem" placeholder="Cidade de origem" required />
       <input type="text" name="destino" placeholder="Destino" required />
+      
       <label>Data de ida:</label>
       <input type="date" name="data_ida" required />
       <label>Data de volta:</label>
       <input type="date" name="data_volta" required />
+
+      <div class="checkbox-group">
+        <div class="checkbox-group-row">
+          <input type="checkbox" id="flexivel" name="flexivel" value="Sim">
+          <label for="flexivel">Tenho flexibilidade nas datas</label>
+        </div>
+        <div class="checkbox-msg">
+          A flexibilidade nas datas é de extrema importância para conseguirmos oferecer descontos ou ofertas melhores.
+        </div>
+      </div>
+
       <input type="number" name="passageiros" placeholder="Quantidade de passageiros" min="1" required />
 
       <input type="hidden" name="_captcha" value="false" />
