@@ -315,7 +315,8 @@ section {
   align-items: center;
 }
 
-.contato-centro {
+.fale {
+  color: #000000;
   text-align: center;
   position: relative; /* para alinhamento vertical do texto */
   z-index: 1; /* para ficar acima da imagem se precisar */
