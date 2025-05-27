@@ -27,7 +27,7 @@ function prevSlide() {
 nextBtn.addEventListener('click', nextSlide);
 prevBtn.addEventListener('click', prevSlide);
 
-setInterval(nextSlide, 3000); // Troca a cada 4 segundos
+setInterval(nextSlide, 6000); // Troca a cada 4 segundos
 
 document.querySelectorAll('a[href^="#"]').forEach(link => {
   link.addEventListener('click', function(e) {
