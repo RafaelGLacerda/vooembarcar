@@ -209,7 +209,7 @@ button:hover {
   .checkbox-row {
     display: inline-flex;
     align-items: center;
-    margin-right: 250px;
+    margin-right: 176px;
     gap: 8px;
     white-space: nowrap;
     /* <<< impede quebra de linha */
