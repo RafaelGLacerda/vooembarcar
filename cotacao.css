@@ -72,6 +72,7 @@ label {
   font-size: 0.95rem;
   color: #333;
 }
+
 .flex-column-label label {
   margin: 0;
   line-height: 1.3;
@@ -126,6 +127,7 @@ button:hover {
     opacity: 0;
     transform: translateY(10px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -161,8 +163,9 @@ button:hover {
 
 
 
-  
+
 }
+
 .checkbox-container {
   display: flex;
   justify-content: flex-start;
@@ -175,6 +178,7 @@ button:hover {
   font-size: 0.95rem;
   color: #333;
 }
+
 .checkbox-container {
   display: flex;
   justify-content: center;
@@ -184,39 +188,44 @@ button:hover {
 .checkbox-row {
   display: inline-flex;
   align-items: center;
-margin-right: 321px;
-  white-space: nowrap; /* <<< impede quebra de linha */
+  margin-right: 321px;
+  white-space: nowrap;
+  /* <<< impede quebra de linha */
   font-size: 0.95rem;
 }
+
 .checkbox-row2 {
   display: inline-flex;
   align-items: center;
-margin-right: 176px;
-    gap: 8px;
-  white-space: nowrap; /* <<< impede quebra de linha */
+  margin-right: 176px;
+  gap: 8px;
+  white-space: nowrap;
+  /* <<< impede quebra de linha */
   font-size: 0.95rem;
 }
 
 
 @media (max-width: 800px) {
   .checkbox-row {
-     display: inline-flex;
-  align-items: center;
-margin-right: 300px;
+    display: inline-flex;
+    align-items: center;
+    margin-right: 250px;
     gap: 8px;
-  white-space: nowrap; /* <<< impede quebra de linha */
-  font-size: 0.95rem;
+    white-space: nowrap;
+    /* <<< impede quebra de linha */
+    font-size: 0.95rem;
   }
 }
 
 @media (max-width: 500px) {
   .checkbox-row2 {
     display: inline-flex;
-  align-items: center;
-margin-right: 176px;
+    align-items: center;
+    margin-right: 176px;
     gap: 8px;
-  white-space: nowrap; /* <<< impede quebra de linha */
-  font-size: 0.95rem;
+    white-space: nowrap;
+    /* <<< impede quebra de linha */
+    font-size: 0.95rem;
   }
 }
 
@@ -234,8 +243,10 @@ margin-right: 176px;
 .circle-icon {
   width: 20px;
   height: 20px;
-  background-color: #ffffff; /* laranja claro */
-  color: var(--cor-principal); /* laranja principal */
+  background-color: #ffffff;
+  /* laranja claro */
+  color: var(--cor-principal);
+  /* laranja principal */
   border-radius: 50%;
   font-weight: bold;
   font-size: 14px;
@@ -256,7 +267,8 @@ margin-right: 176px;
   padding: 10px 12px;
   position: absolute;
   z-index: 10;
-  bottom: 130%; /* aparece acima do ícone */
+  bottom: 130%;
+  /* aparece acima do ícone */
   left: 50%;
   transform: translateX(-50%);
   opacity: 0;
@@ -264,7 +276,7 @@ margin-right: 176px;
   font-size: 0.85rem;
   line-height: 1.3;
   white-space: normal;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 .tooltip-wrapper:hover .tooltip-box {
@@ -275,7 +287,8 @@ margin-right: 176px;
 .tooltip-box::after {
   content: "";
   position: absolute;
-  top: 100%; /* ponteiro virado para baixo */
+  top: 100%;
+  /* ponteiro virado para baixo */
   left: 50%;
   transform: translateX(-50%);
   border-width: 6px;
