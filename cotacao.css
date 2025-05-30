@@ -198,7 +198,7 @@ margin-right: 176px;
 }
 
 
-@media (max-width: 500px) {
+@media (max-width: 800px) {
   .checkbox-row {
      display: inline-flex;
   align-items: center;
