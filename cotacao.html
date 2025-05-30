@@ -64,6 +64,7 @@
     const somenteIdaCheckbox = document.getElementById('somenteIda');
     const erroMensagem = document.getElementById('mensagemErro');
 
+    // Define a data mínima para hoje
     dataIda.setAttribute('min', today);
 
     dataIda.addEventListener('change', function () {
@@ -110,19 +111,35 @@
       const nome = form.nome.value.trim();
       const origem = form.origem.value.trim();
       const destino = form.destino.value.trim();
-      const dataIdaVal = formatarDataBR(form.data_ida.value);
+      const dataIdaVal = form.data_ida.value;
+      const dataVoltaVal = form.data_volta.value;
       const somenteIda = somenteIdaCheckbox.checked;
-      const dataVoltaVal = somenteIda ? "Somente ida" : (form.data_volta.value ? formatarDataBR(form.data_volta.value) : "Não informada");
       const flexivel = form.flexivel.checked ? "Sim" : "Não";
       const passageiros = form.passageiros.value;
+
+      const idaDate = new Date(dataIdaVal);
+      const hoje = new Date(today);
+
+      if (idaDate < hoje) {
+        alert("A data de ida não pode ser anterior à data de hoje.");
+        return;
+      }
+
+      if (!somenteIda && dataVoltaVal) {
+        const voltaDate = new Date(dataVoltaVal);
+        if (voltaDate < idaDate) {
+          alert("A data de volta não pode ser anterior à data de ida.");
+          return;
+        }
+      }
 
       const mensagem = `
 *Solicitação de Cotação*
 🧍 Nome: ${nome}
 📍 Origem: ${origem}
 🎯 Destino: ${destino}
-🗓️ Ida: ${dataIdaVal}
-🔁 Volta: ${dataVoltaVal}
+🗓️ Ida: ${formatarDataBR(dataIdaVal)}
+🔁 Volta: ${somenteIda ? "Somente ida" : (dataVoltaVal ? formatarDataBR(dataVoltaVal) : "Não informada")}
 📅 Flexível nas datas: ${flexivel}
 👥 Passageiros: ${passageiros}
       `;
