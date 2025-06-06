@@ -41,7 +41,15 @@
         </div>
       </label>
 
-      <input type="number" name="passageiros" placeholder="Quantidade de passageiros" min="1" required />
+      <input
+        type="number"
+        name="passageiros"
+        placeholder="Quantidade de passageiros (apenas números)"
+        min="1"
+        required
+        inputmode="numeric"
+        pattern="\d*"
+      />
 
       <div class="button-group">
         <button type="button" onclick="enviarFormulario()">Enviar</button>
@@ -64,7 +72,6 @@
     const somenteIdaCheckbox = document.getElementById('somenteIda');
     const erroMensagem = document.getElementById('mensagemErro');
 
-    // Define a data mínima para hoje
     dataIda.setAttribute('min', today);
 
     dataIda.addEventListener('change', function () {
@@ -85,7 +92,7 @@
 
     function formatarDataBR(dataISO) {
       if (!dataISO) return "";
-      const partes = dataISO.split('-'); // [yyyy, mm, dd]
+      const partes = dataISO.split('-');
       return `${partes[2]}/${partes[1]}/${partes[0]}`;
     }
 
@@ -116,6 +123,11 @@
       const somenteIda = somenteIdaCheckbox.checked;
       const flexivel = form.flexivel.checked ? "Sim" : "Não";
       const passageiros = form.passageiros.value;
+
+      if (!/^\d+$/.test(passageiros)) {
+        alert("A quantidade de passageiros deve conter apenas números.");
+        return;
+      }
 
       const idaDate = new Date(dataIdaVal);
       const hoje = new Date(today);
