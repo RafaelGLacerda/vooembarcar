@@ -7,6 +7,18 @@
   <title>Solicitação de cotação</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="cotacao.css">
+  <style>
+    .mensagem-passageiros {
+      display: none;
+      font-size: 0.85rem;
+      color: #555;
+      margin-top: 5px;
+      background-color: #f0f0ff;
+      padding: 8px;
+      border-left: 4px solid #6a5acd;
+      border-radius: 4px;
+    }
+  </style>
 </head>
 <body>
 
@@ -41,8 +53,10 @@
         </div>
       </label>
 
+      <!-- Campo de passageiros com mensagem interativa -->
       <input
         type="number"
+        id="campoPassageiros"
         name="passageiros"
         placeholder="Quantidade de passageiros (apenas números)"
         min="1"
@@ -50,6 +64,10 @@
         inputmode="numeric"
         pattern="\d*"
       />
+      <div id="mensagemPassageiros" class="mensagem-passageiros">
+        👥 Passageiros são adultos, adolescentes ou crianças acima de 3 anos.<br>
+        👶 Crianças de até 2 anos não pagam.
+      </div>
 
       <div class="button-group">
         <button type="button" onclick="enviarFormulario()">Enviar</button>
@@ -164,6 +182,18 @@
       document.getElementById('formContainer').style.display = 'none';
       document.getElementById('mensagemSucesso').style.display = 'block';
     }
+
+    // Mostrar/ocultar mensagem informativa ao focar/desfocar o campo de passageiros
+    const campoPassageiros = document.getElementById('campoPassageiros');
+    const mensagemPassageiros = document.getElementById('mensagemPassageiros');
+
+    campoPassageiros.addEventListener('focus', () => {
+      mensagemPassageiros.style.display = 'block';
+    });
+
+    campoPassageiros.addEventListener('blur', () => {
+      mensagemPassageiros.style.display = 'none';
+    });
   </script>
 </body>
 </html>
