@@ -31,7 +31,7 @@
       <input type="text" name="origem" placeholder="Origem" required />
       <input type="text" name="destino" placeholder="Destino" required />
 
-      <input type="date" name="data_ida" required placeholder="Data de ida" />
+      <input type="date" name="data_ida" id="dataIda" required placeholder="Data de ida" />
 
       <div class="checkbox-container">
         <label class="checkbox-row">
@@ -41,7 +41,7 @@
       </div>
 
       <div id="campoVolta">
-        <input type="date" name="data_volta" />
+        <input type="date" name="data_volta" id="dataVolta" />
       </div>
 
       <label class="checkbox-row2">
@@ -53,7 +53,6 @@
         </div>
       </label>
 
-      <!-- Campo de passageiros com select -->
       <select id="campoPassageiros" name="passageiros" required>
         <option value="" disabled selected>Quantidade de passageiros</option>
       </select>
@@ -76,13 +75,16 @@
 
   <script>
     const today = new Date().toISOString().split('T')[0];
-    const dataIda = document.querySelector('input[name="data_ida"]');
-    const dataVolta = document.querySelector('input[name="data_volta"]');
+
+    const dataIda = document.getElementById('dataIda');
+    const dataVolta = document.getElementById('dataVolta');
     const campoVolta = document.getElementById('campoVolta');
     const somenteIdaCheckbox = document.getElementById('somenteIda');
     const erroMensagem = document.getElementById('mensagemErro');
 
+    // Bloquear datas anteriores a hoje
     dataIda.setAttribute('min', today);
+    dataVolta.setAttribute('min', today);
 
     dataIda.addEventListener('change', function () {
       dataVolta.value = '';
@@ -117,12 +119,8 @@
 
       if (!allFilled) {
         erroMensagem.style.display = 'block';
-        setTimeout(() => {
-          erroMensagem.style.display = 'none';
-        }, 4000);
+        setTimeout(() => erroMensagem.style.display = 'none', 4000);
         return;
-      } else {
-        erroMensagem.style.display = 'none';
       }
 
       const nome = form.nome.value.trim();
@@ -170,23 +168,19 @@
       document.getElementById('mensagemSucesso').style.display = 'block';
     }
 
-    // Preencher o select com números de 1 a 50
+    // Preencher select de passageiros
     const selectPassageiros = document.getElementById('campoPassageiros');
-    for (let i = 1; i <= 50; i++) {
+    for (let i = 1; i <= 10; i++) {
       const option = document.createElement('option');
       option.value = i;
       option.textContent = i;
       selectPassageiros.appendChild(option);
     }
 
-    // Mostrar/ocultar mensagem informativa ao focar/desfocar
+    // Mensagem informativa passageiros
     const mensagemPassageiros = document.getElementById('mensagemPassageiros');
-    selectPassageiros.addEventListener('focus', () => {
-      mensagemPassageiros.style.display = 'block';
-    });
-    selectPassageiros.addEventListener('blur', () => {
-      mensagemPassageiros.style.display = 'none';
-    });
+    selectPassageiros.addEventListener('focus', () => mensagemPassageiros.style.display = 'block');
+    selectPassageiros.addEventListener('blur', () => mensagemPassageiros.style.display = 'none');
   </script>
 </body>
 </html>
