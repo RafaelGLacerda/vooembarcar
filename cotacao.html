@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8" />
   <link rel="icon" href="img/logo4.png" type="image/png">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Solicitação de cotação</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="cotacao.css">
@@ -20,54 +21,46 @@
     }
   </style>
 </head>
+
 <body>
 
   <div class="form-container" id="formContainer">
     <h2>Solicite sua cotação</h2>
     <div id="mensagemErro" class="mensagem-erro">Preencha todos os campos obrigatórios.</div>
 
-<div class="input-group">
-  <input type="text" name="nome" id="nome" placeholder="Nome" required maxlength="50" />
-  <div class="char-counter" id="nome-counter">0 / 50</div>
-</div>
+    <form id="cotacaoForm" onsubmit="return false;">
+      <input type="text" name="nome" id="nome" placeholder="Nome" required  maxlength="50" />
+      <div id="nome-counter" class="char-counter">0 / 50</div>
 
-<div class="input-group">
-  <input type="text" name="origem" id="origem" placeholder="Origem" required maxlength="50" />
-  <div class="char-counter" id="origem-counter">0 / 50</div>
-</div>
+      <input type="text" name="origem" id="origem" placeholder="Origem" required  maxlength="50" />
+      <div id="origem-counter" class="char-counter">0 / 50</div>
 
-<div class="input-group">
-  <input type="text" name="destino" id="destino" placeholder="Destino" required maxlength="50" />
-  <div class="char-counter" id="destino-counter">0 / 50</div>
-</div>
+      <input type="text" name="destino" id="destino" placeholder="Destino" required  maxlength="50"/>
+      <div id="destino-counter" class="char-counter">0 / 50</div>
 
 
       <input type="date" name="data_ida" id="dataIda" required placeholder="Data de ida" />
 
-      <div class="checkbox-row">
-  <label>
-    <input type="checkbox" id="somenteIda" name="somente_ida">
-    Somente ida
-  </label>
-</div>
+      <div class="checkbox-container">
+        <label class="checkbox-row">
+          <input type="checkbox" id="somenteIda" name="somente_ida">
+          <span>Somente ida</span>
+        </label>
+      </div>
 
-<div id="campoVolta">
-  <input type="date" name="data_volta" id="dataVolta" />
-</div>
+      <div id="campoVolta">
+        <input type="date" name="data_volta" id="dataVolta" />
+      </div>
 
-<div class="checkbox-row">
-  <label>
-    <input type="checkbox" id="flexivel" name="flexivel" value="Sim">
-    Tenho flexibilidade nas datas
-  </label>
-  <div class="tooltip-wrapper" aria-label="Ajuda">
-    <div class="circle-icon">?</div>
-    <div class="tooltip-box">
-      Flexibilidade significa considerar datas próximas à desejada, aumentando as chances de encontrar melhores preços.
-    </div>
-  </div>
-</div>
-
+      <label class="checkbox-row2">
+        <input type="checkbox" id="flexivel" name="flexivel" value="Sim">
+        <span>Tenho flexibilidade nas datas</span>
+        <div class="tooltip-wrapper" aria-label="Ajuda">
+          <div class="circle-icon">?</div>
+          <div class="tooltip-box">Flexibilidade significa considerar datas próximas à desejada, aumentando as chances
+            de encontrar melhores preços.</div>
+        </div>
+      </label>
 
       <select id="campoPassageiros" name="passageiros" required>
         <option value="" disabled selected>Quantidade de passageiros</option>
@@ -197,19 +190,23 @@
     const mensagemPassageiros = document.getElementById('mensagemPassageiros');
     selectPassageiros.addEventListener('focus', () => mensagemPassageiros.style.display = 'block');
     selectPassageiros.addEventListener('blur', () => mensagemPassageiros.style.display = 'none');
+
     function atualizarContador(idInput, idCounter, max) {
-  const input = document.getElementById(idInput);
-  const counter = document.getElementById(idCounter);
+      const input = document.getElementById(idInput);
+      const counter = document.getElementById(idCounter);
 
-  input.addEventListener('input', () => {
-    counter.textContent = `${input.value.length} / ${max}`;
-  });
-}
+      counter.textContent = `${input.value.length} / ${max}`; // valor inicial
 
-atualizarContador("nome", "nome-counter", 50);
-atualizarContador("origem", "origem-counter", 50);
-atualizarContador("destino", "destino-counter", 50);
+      input.addEventListener('input', () => {
+        counter.textContent = `${input.value.length} / ${max}`;
+      });
+    }
+
+    atualizarContador("nome", "nome-counter", 50);
+    atualizarContador("origem", "origem-counter", 50);
+    atualizarContador("destino", "destino-counter", 50);
 
   </script>
 </body>
+
 </html>
