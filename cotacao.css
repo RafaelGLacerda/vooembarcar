@@ -299,7 +299,7 @@ button:hover {
 }
 
 .char-counter {
-  font-size: 0.8rem;
+  font-size: 0.6rem;
   color: #666;
   margin-right: 10px;
   margin-top: -33px; /* DIMINUI o espaço entre input e contador */
