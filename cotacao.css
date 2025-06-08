@@ -199,3 +199,15 @@ button:hover {
     width: 200px;
   }
 }
+.input-group {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.char-counter {
+  font-size: 0.8rem;
+  color: #888;
+  align-self: flex-end;
+  margin-top: 4px;
+}

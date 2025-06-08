@@ -26,10 +26,21 @@
     <h2>Solicite sua cotação</h2>
     <div id="mensagemErro" class="mensagem-erro">Preencha todos os campos obrigatórios.</div>
 
-    <form id="cotacaoForm" onsubmit="return false;">
-      <input type="text" name="nome" placeholder="Nome" required />
-      <input type="text" name="origem" placeholder="Origem" required />
-      <input type="text" name="destino" placeholder="Destino" required />
+<div class="input-group">
+  <input type="text" name="nome" id="nome" placeholder="Nome" required maxlength="50" />
+  <div class="char-counter" id="nome-counter">0 / 50</div>
+</div>
+
+<div class="input-group">
+  <input type="text" name="origem" id="origem" placeholder="Origem" required maxlength="50" />
+  <div class="char-counter" id="origem-counter">0 / 50</div>
+</div>
+
+<div class="input-group">
+  <input type="text" name="destino" id="destino" placeholder="Destino" required maxlength="50" />
+  <div class="char-counter" id="destino-counter">0 / 50</div>
+</div>
+
 
       <input type="date" name="data_ida" id="dataIda" required placeholder="Data de ida" />
 
@@ -186,6 +197,19 @@
     const mensagemPassageiros = document.getElementById('mensagemPassageiros');
     selectPassageiros.addEventListener('focus', () => mensagemPassageiros.style.display = 'block');
     selectPassageiros.addEventListener('blur', () => mensagemPassageiros.style.display = 'none');
+    function atualizarContador(idInput, idCounter, max) {
+  const input = document.getElementById(idInput);
+  const counter = document.getElementById(idCounter);
+
+  input.addEventListener('input', () => {
+    counter.textContent = `${input.value.length} / ${max}`;
+  });
+}
+
+atualizarContador("nome", "nome-counter", 50);
+atualizarContador("origem", "origem-counter", 50);
+atualizarContador("destino", "destino-counter", 50);
+
   </script>
 </body>
 </html>
