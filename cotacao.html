@@ -191,16 +191,21 @@
     selectPassageiros.addEventListener('focus', () => mensagemPassageiros.style.display = 'block');
     selectPassageiros.addEventListener('blur', () => mensagemPassageiros.style.display = 'none');
 
-    function atualizarContador(idInput, idCounter, max) {
-      const input = document.getElementById(idInput);
-      const counter = document.getElementById(idCounter);
+ function atualizarContador(idInput, idCounter, max) {
+  const input = document.getElementById(idInput);
+  const counter = document.getElementById(idCounter);
 
-      counter.textContent = `${input.value.length} / ${max}`; // valor inicial
+  // Atualiza contador inicialmente
+  counter.textContent = `${input.value.length} / ${max}`;
 
-      input.addEventListener('input', () => {
-        counter.textContent = `${input.value.length} / ${max}`;
-      });
+  input.addEventListener('input', () => {
+    // Se passar do máximo, corta imediatamente
+    if (input.value.length > max) {
+      input.value = input.value.slice(0, max);
     }
+    counter.textContent = `${input.value.length} / ${max}`;
+  });
+}
 
     atualizarContador("nome", "nome-counter", 50);
     atualizarContador("origem", "origem-counter", 50);
