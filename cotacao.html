@@ -33,25 +33,30 @@
 
       <input type="date" name="data_ida" id="dataIda" required placeholder="Data de ida" />
 
-      <div class="checkbox-container">
-        <label class="checkbox-row">
-          <input type="checkbox" id="somenteIda" name="somente_ida">
-          <span>Somente ida</span>
-        </label>
-      </div>
+      <div class="checkbox-row">
+  <label>
+    <input type="checkbox" id="somenteIda" name="somente_ida">
+    Somente ida
+  </label>
+</div>
 
-      <div id="campoVolta">
-        <input type="date" name="data_volta" id="dataVolta" />
-      </div>
+<div id="campoVolta">
+  <input type="date" name="data_volta" id="dataVolta" />
+</div>
 
-      <label class="checkbox-row2">
-        <input type="checkbox" id="flexivel" name="flexivel" value="Sim">
-        <span>Tenho flexibilidade nas datas</span>
-        <div class="tooltip-wrapper" aria-label="Ajuda">
-          <div class="circle-icon">?</div>
-          <div class="tooltip-box">Flexibilidade significa considerar datas próximas à desejada, aumentando as chances de encontrar melhores preços.</div>
-        </div>
-      </label>
+<div class="checkbox-row">
+  <label>
+    <input type="checkbox" id="flexivel" name="flexivel" value="Sim">
+    Tenho flexibilidade nas datas
+  </label>
+  <div class="tooltip-wrapper" aria-label="Ajuda">
+    <div class="circle-icon">?</div>
+    <div class="tooltip-box">
+      Flexibilidade significa considerar datas próximas à desejada, aumentando as chances de encontrar melhores preços.
+    </div>
+  </div>
+</div>
+
 
       <select id="campoPassageiros" name="passageiros" required>
         <option value="" disabled selected>Quantidade de passageiros</option>
