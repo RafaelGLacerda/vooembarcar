@@ -1,59 +1,49 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
   <meta charset="UTF-8" />
-  <link rel="icon" href="img/logo4.png" type="image/png">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Solicitação de cotação</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+   <link rel="icon" href="img/logo4.png" type="image/png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Solicitar Cotação</title>
   <link rel="stylesheet" href="cotacao.css">
-  <style>
-    .mensagem-passageiros {
-      display: none;
-      font-size: 0.85rem;
-      color: #555;
-      margin-top: 5px;
-      background-color: #f0f0ff;
-      padding: 8px;
-      border-left: 4px solid #6a5acd;
-      border-radius: 4px;
-    }
-  </style>
 </head>
-
 <body>
-
-  <div class="form-container" id="formContainer">
-    <h2>Solicite sua cotação</h2>
-    <div id="mensagemErro" class="mensagem-erro">Preencha todos os campos obrigatórios.</div>
-
-    <form id="cotacaoForm" onsubmit="return false;">
-      <input type="text" name="nome" id="nome" placeholder="Nome" required  maxlength="50" />
-      <div id="nome-counter" class="char-counter">0 / 50</div>
-
-      <input type="text" name="origem" id="origem" placeholder="Origem" required  maxlength="50" />
-      <div id="origem-counter" class="char-counter">0 / 50</div>
-
-      <input type="text" name="destino" id="destino" placeholder="Destino" required  maxlength="50"/>
-      <div id="destino-counter" class="char-counter">0 / 50</div>
+  <div class="container">
+    <h1>Solicite sua Cotação</h1>
+    <form id="cotacaoForm">
 
 
-      <input type="date" name="data_ida" id="dataIda" required placeholder="Data de ida" />
-
-      <div class="checkbox-container">
-        <label class="checkbox-row">
-          <input type="checkbox" id="somenteIda" name="somente_ida">
-          <span>Somente ida</span>
-        </label>
+      <div class="input-wrapper">
+        <input type="text" name="nome" maxlength="50" placeholder="Nome" oninput="atualizaContador(this, 'nomeCount')" required />
+        <span class="char-counter" id="nomeCount">0/50</span>
       </div>
 
-      <div id="campoVolta">
-        <input type="date" name="data_volta" id="dataVolta" />
+
+      <div class="input-wrapper">
+        <input type="text" name="origem" maxlength="50" placeholder="Origem" oninput="atualizaContador(this, 'origemCount')" required />
+        <span class="char-counter" id="origemCount">0/50</span>
       </div>
+
+
+      <div class="input-wrapper">
+        <input type="text" name="destino" maxlength="50" placeholder="Destino" oninput="atualizaContador(this, 'destinoCount')" required />
+        <span class="char-counter" id="destinoCount">0/50</span>
+      </div>
+
+      <label class="test">Data de ida:
+        <input type="date" name="dataIda" id="dataIda" required onchange="atualizaDataVoltaMin()" />
+      </label>
+
+      <label id="voltaLabel">Data de volta:
+        <input type="date" name="dataVolta" id="dataVolta" onchange="verificaDatas()" />
+      </label>
+
+      <label class="checkbox-row">
+        <input type="checkbox" id="somenteIda" onchange="toggleVolta()" /> Somente ida
+      </label>
 
       <label class="checkbox-row2">
-        <input type="checkbox" id="flexivel" name="flexivel" value="Sim">
+        <input type="checkbox" id="flexivel" name="flexivel" value="Sim" />
         <span>Tenho flexibilidade nas datas</span>
         <div class="tooltip-wrapper" aria-label="Ajuda">
           <div class="circle-icon">?</div>
@@ -62,156 +52,141 @@
         </div>
       </label>
 
-      <select id="campoPassageiros" name="passageiros" required>
-        <option value="" disabled selected>Quantidade de passageiros</option>
-      </select>
-      <div id="mensagemPassageiros" class="mensagem-passageiros">
-        👶 Crianças de até 1 ano e 11 meses não pagam.
-      </div>
+      <label>Número de passageiros:
+        <select name="passageiros" required>
+          <option value="" disabled selected>Selecione</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+          <option value="9">9</option>
+          <option value="10">10</option>
+        </select>
+        <span id="criancaInfo" class="info-msg"></span>
+      </label>
 
-      <div class="button-group">
-        <button type="button" onclick="enviarFormulario()">Enviar</button>
-        <button type="button" onclick="window.location.href='index.html'">Voltar</button>
+      <div class="botoes">
+        <button type="submit">Enviar via WhatsApp</button>
+        <a href="index.html" class="voltar-btn">Voltar</a>
       </div>
     </form>
   </div>
 
-  <div class="sucesso-container" id="mensagemSucesso" style="display:none;">
-    <h2>✅ Enviado com sucesso!</h2>
-    <p>Abra o WhatsApp e clique em "enviar".</p>
-    <button onclick="window.location.href='index.html'">Voltar para o site</button>
-  </div>
-
   <script>
-    const today = new Date().toISOString().split('T')[0];
+    function atualizaContador(input, counterId) {
+      const count = input.value.length;
+      document.getElementById(counterId).textContent = `${count}/50`;
+    }
 
-    const dataIda = document.getElementById('dataIda');
-    const dataVolta = document.getElementById('dataVolta');
-    const campoVolta = document.getElementById('campoVolta');
-    const somenteIdaCheckbox = document.getElementById('somenteIda');
-    const erroMensagem = document.getElementById('mensagemErro');
+    function toggleVolta() {
+      const checkbox = document.getElementById("somenteIda");
+      const voltaLabel = document.getElementById("voltaLabel");
+      const dataVolta = document.getElementById("dataVolta");
 
-    // Bloquear datas anteriores a hoje
-    dataIda.setAttribute('min', today);
-    dataVolta.setAttribute('min', today);
-
-    dataIda.addEventListener('change', function () {
-      dataVolta.value = '';
-      dataVolta.setAttribute('min', this.value);
-    });
-
-    somenteIdaCheckbox.addEventListener('change', function () {
-      if (this.checked) {
-        campoVolta.style.display = 'none';
-        dataVolta.removeAttribute('required');
-        dataVolta.value = '';
+      if (checkbox.checked) {
+        voltaLabel.style.display = "none";
+        dataVolta.value = ""; // Limpa a data de volta
       } else {
-        campoVolta.style.display = 'block';
-        dataVolta.setAttribute('required', '');
+        voltaLabel.style.display = "block";
+      }
+    }
+
+    function atualizaDataVoltaMin() {
+      const dataIda = document.getElementById("dataIda").value;
+      const dataVolta = document.getElementById("dataVolta");
+      dataVolta.min = dataIda;
+    }
+
+    function verificaDatas() {
+      const dataIda = document.getElementById("dataIda").value;
+      const dataVolta = document.getElementById("dataVolta").value;
+      if (dataVolta && dataIda && dataVolta < dataIda) {
+        alert("A data de volta não pode ser anterior à data de ida.");
+        document.getElementById("dataVolta").value = "";
+      }
+    }
+
+    // Impede seleção de datas anteriores a hoje
+    window.addEventListener("DOMContentLoaded", () => {
+      const hoje = new Date().toISOString().split("T")[0];
+      document.getElementById("dataIda").min = hoje;
+      document.getElementById("dataVolta").min = hoje;
+    });
+
+    // Controle da mensagem de aviso da criança
+    const selectPassageiros = document.querySelector('select[name="passageiros"]');
+    const criancaInfo = document.getElementById("criancaInfo");
+
+    function mostraAviso() {
+      criancaInfo.textContent = "👶 Crianças de até 1 ano e 11 meses não pagam.";
+    }
+
+    function escondeAviso() {
+      criancaInfo.textContent = "";
+    }
+
+    selectPassageiros.addEventListener("focus", mostraAviso);
+
+    // Esconder aviso ao clicar fora do select
+    document.addEventListener("click", (event) => {
+      if (!selectPassageiros.contains(event.target)) {
+        escondeAviso();
       }
     });
 
-    function formatarDataBR(dataISO) {
-      if (!dataISO) return "";
-      const partes = dataISO.split('-');
-      return `${partes[2]}/${partes[1]}/${partes[0]}`;
-    }
-
-    function enviarFormulario() {
-      const form = document.getElementById('cotacaoForm');
-      const inputs = form.querySelectorAll('input[required], select[required]');
-      let allFilled = true;
-
-      inputs.forEach(input => {
-        if (!input.value.trim()) allFilled = false;
-      });
-
-      if (!allFilled) {
-        erroMensagem.style.display = 'block';
-        setTimeout(() => erroMensagem.style.display = 'none', 4000);
-        return;
-      }
-
-      const nome = form.nome.value.trim();
-      const origem = form.origem.value.trim();
-      const destino = form.destino.value.trim();
-      const dataIdaVal = form.data_ida.value;
-      const dataVoltaVal = form.data_volta.value;
-      const somenteIda = somenteIdaCheckbox.checked;
-      const flexivel = form.flexivel.checked ? "Sim" : "Não";
-      const passageiros = form.passageiros.value;
-
-      const idaDate = new Date(dataIdaVal);
-      const hoje = new Date(today);
-
-      if (idaDate < hoje) {
-        alert("A data de ida não pode ser anterior à data de hoje.");
-        return;
-      }
-
-      if (!somenteIda && dataVoltaVal) {
-        const voltaDate = new Date(dataVoltaVal);
-        if (voltaDate < idaDate) {
-          alert("A data de volta não pode ser anterior à data de ida.");
-          return;
+    // Esconder aviso ao perder foco via teclado (tab)
+    selectPassageiros.addEventListener("blur", () => {
+      setTimeout(() => {
+        if (document.activeElement !== selectPassageiros) {
+          escondeAviso();
         }
-      }
+      }, 100);
+    });
 
-      const mensagem = `
-*Solicitação de Cotação*
-🧍 Nome: ${nome}
-📍 Origem: ${origem}
-🎯 Destino: ${destino}
-🗓️ Ida: ${formatarDataBR(dataIdaVal)}
-🔁 Volta: ${somenteIda ? "Somente ida" : (dataVoltaVal ? formatarDataBR(dataVoltaVal) : "Não informada")}
-📅 Flexível nas datas: ${flexivel}
-👥 Passageiros: ${passageiros}
-      `;
-
-      const mensagemCodificada = encodeURIComponent(mensagem);
-      const numeroEmpresa = "5584999839663";
-      const linkWhatsApp = `https://wa.me/${numeroEmpresa}?text=${mensagemCodificada}`;
-      window.open(linkWhatsApp, '_blank');
-
-      document.getElementById('formContainer').style.display = 'none';
-      document.getElementById('mensagemSucesso').style.display = 'block';
-    }
-
-    // Preencher select de passageiros
-    const selectPassageiros = document.getElementById('campoPassageiros');
-    for (let i = 1; i <= 10; i++) {
-      const option = document.createElement('option');
-      option.value = i;
-      option.textContent = i;
-      selectPassageiros.appendChild(option);
-    }
-
-    // Mensagem informativa passageiros
-    const mensagemPassageiros = document.getElementById('mensagemPassageiros');
-    selectPassageiros.addEventListener('focus', () => mensagemPassageiros.style.display = 'block');
-    selectPassageiros.addEventListener('blur', () => mensagemPassageiros.style.display = 'none');
-
- function atualizarContador(idInput, idCounter, max) {
-  const input = document.getElementById(idInput);
-  const counter = document.getElementById(idCounter);
-
-  // Atualiza contador inicialmente
-  counter.textContent = `${input.value.length} / ${max}`;
-
-  input.addEventListener('input', () => {
-    // Se passar do máximo, corta imediatamente
-    if (input.value.length > max) {
-      input.value = input.value.slice(0, max);
-    }
-    counter.textContent = `${input.value.length} / ${max}`;
-  });
+function formatarDataBR(dataISO) {
+  if (!dataISO) return "";
+  const partes = dataISO.split("-");
+  if (partes.length !== 3) return dataISO; // fallback caso formato inválido
+  return `${partes[2]}/${partes[1]}/${partes[0]}`;
 }
 
-    atualizarContador("nome", "nome-counter", 50);
-    atualizarContador("origem", "origem-counter", 50);
-    atualizarContador("destino", "destino-counter", 50);
+document.getElementById("cotacaoForm").addEventListener("submit", function (e) {
+  e.preventDefault();
+
+  const form = new FormData(e.target);
+  const nome = form.get("nome");
+  const origem = form.get("origem");
+  const destino = form.get("destino");
+  const dataIdaISO = form.get("dataIda");
+  const somenteIda = document.getElementById("somenteIda").checked;
+  const dataVoltaISO = somenteIda ? "" : form.get("dataVolta");
+  const flexivel = form.get("flexivel") ? "Sim" : "Não";
+  const passageiros = form.get("passageiros");
+
+  const dataIda = formatarDataBR(dataIdaISO);
+  const dataVolta = somenteIda ? "Somente ida" : (dataVoltaISO ? formatarDataBR(dataVoltaISO) : "Não informada");
+
+  const mensagem = `
+🚀 *Solicitação de Cotação* 🚀
+  
+👤 Nome: ${nome}
+📍 Origem: ${origem}
+🎯 Destino: ${destino}
+📅 Ida: ${dataIda}
+📅 Volta: ${dataVolta}
+📈 Flexível nas datas? ${flexivel}
+🧑 Passageiros: ${passageiros}
+  `.trim();
+
+  const numero = "5584999839663";
+  const link = `https://wa.me/${numero}?text=${encodeURIComponent(mensagem)}`;
+  window.open(link, "_blank");
+});
 
   </script>
 </body>
-
 </html>
