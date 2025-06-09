@@ -81,6 +81,30 @@
       const count = input.value.length;
       document.getElementById(counterId).textContent = `${count}/50`;
     }
+      function limitarInput(input, counterId) {
+    if (input.value.length > 50) {
+      input.value = input.value.substring(0, 50);
+    }
+    atualizaContador(input, counterId);
+  }
+
+  document.querySelectorAll('input[type="text"]').forEach((input) => {
+    input.addEventListener("input", function () {
+      const counterId = this.nextElementSibling.id;
+      limitarInput(this, counterId);
+    });
+
+    input.addEventListener("paste", function (e) {
+      const pasted = e.clipboardData.getData('text');
+      if (this.value.length + pasted.length > 50) {
+        e.preventDefault();
+        const restante = 50 - this.value.length;
+        this.value += pasted.substring(0, restante);
+        const counterId = this.nextElementSibling.id;
+        atualizaContador(this, counterId);
+      }
+    });
+  });
 
     function toggleVolta() {
       const checkbox = document.getElementById("somenteIda");
