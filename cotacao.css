@@ -249,3 +249,16 @@ button:hover {
     margin-top: 12px;
   }
 }
+  .char-counter {
+    opacity: 0.3; /* Deixe mais ou menos transparente conforme preferir */
+    font-size: 0.75em; /* opcional: deixa um pouco menor */
+    position: absolute; /* se quiser posicionamento refinado */
+    right: 10px;
+    bottom: 8px;
+    pointer-events: none;
+  }
+
+  .input-wrapper {
+    position: relative; /* necessário para posicionamento absoluto funcionar */
+    margin-bottom: 20px;
+  }
