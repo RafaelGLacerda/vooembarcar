@@ -74,6 +74,13 @@
         <a href="index.html" class="voltar-btn">Voltar</a>
       </div>
     </form>
+
+    <div id="mensagemEnviada" style="display:none; text-align:center; margin-top: 20px;">
+  <p>✅ <strong>Solicitação enviada com sucesso!</strong> <br>
+      Voltando para tela inicial em <span id="contador">5</span> segundos...</p>
+</div>
+
+
   </div>
 
   <script>
@@ -209,6 +216,23 @@ document.getElementById("cotacaoForm").addEventListener("submit", function (e) {
   const numero = "5584999839663";
   const link = `https://wa.me/${numero}?text=${encodeURIComponent(mensagem)}`;
   window.open(link, "_blank");
+
+  // Ocultar formulário e mostrar mensagem
+  document.getElementById("cotacaoForm").style.display = "none";
+  document.getElementById("mensagemEnviada").style.display = "block";
+
+  // Contador de 5 segundos
+  let segundos = 5;
+  const spanContador = document.getElementById("contador");
+
+  const intervalo = setInterval(() => {
+    segundos--;
+    spanContador.textContent = segundos;
+    if (segundos === 0) {
+      clearInterval(intervalo);
+      window.location.href = "index.html";
+    }
+  }, 1000);
 });
 
   </script>
